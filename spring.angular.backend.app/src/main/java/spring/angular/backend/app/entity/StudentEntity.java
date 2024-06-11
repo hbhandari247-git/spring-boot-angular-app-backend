@@ -3,18 +3,26 @@ package spring.angular.backend.app.entity;
 import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import spring.angular.backend.app.utilities.CustomDateDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import spring.angular.backend.app.enums.EnumTypes.Section;
 import spring.angular.backend.app.enums.EnumTypes.Standard;
 
 @Entity
-@Table(name = "DC_STUDENT")
+@Table(name = "DC_STUDENT", uniqueConstraints = {
+	    @UniqueConstraint(columnNames = {"SCHOOL_ID", "SECTION", "ROLL_NO", "STANDARD"})
+	})
 public class StudentEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ROLL_NO")
+	@Column(name = "ID")
 	private long id;
+
+	@NotNull
+	@Column(name = "ROLL_NO")
+	private long candidateId;
 
 	@NotNull
 	@Column(name = "FIRST_NAME")
@@ -31,19 +39,24 @@ public class StudentEntity {
 	@Column(name = "EMAIL_ID")
 	private String emailId;
 
+	@NotNull
 	@Column(name = "SECTION")
 	@Enumerated(EnumType.STRING)
 	private Section section;
 
+	@NotNull
 	@Column(name = "STANDARD")
 	@Enumerated(EnumType.STRING)
 	private Standard standard;
 
 	@Column(name = "DATE_OF_BIRTH")
+	@JsonDeserialize(using = CustomDateDeserializer.class)
+	@NotNull
 	private Date dob;
 
 	@OneToOne
-	@JoinColumn(name = "SCHOOL_ID", nullable = true)
+	@NotNull
+	@JoinColumn(name = "SCHOOL_ID", nullable = false)
 	private SchoolEntity school;
 
 	public long getId() {
@@ -117,4 +130,13 @@ public class StudentEntity {
 	public void setSchool(SchoolEntity school) {
 		this.school = school;
 	}
+
+	public long getCandidateId() {
+		return candidateId;
+	}
+
+	public void setCandidateId(long candidateId) {
+		this.candidateId = candidateId;
+	}
+
 }

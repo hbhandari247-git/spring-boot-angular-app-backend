@@ -16,6 +16,7 @@ public class Student {
 	private Standard standard;
 	private Date dob;
 	private School school;
+	private long candidateId;
 
 	public long getId() {
 		return id;
@@ -87,6 +88,14 @@ public class Student {
 
 	public void setSchool(School school) {
 		this.school = school;
+	}
+
+	public long getCandidateId() {
+		return candidateId;
+	}
+
+	public void setCandidateId(long candidateId) {
+		this.candidateId = candidateId;
 	}
 
 }

@@ -132,6 +132,7 @@ public class StudentService {
 		studentEntity.setSection(student.getSection());
 		studentEntity.setStandard(student.getStandard());
 		studentEntity.setId(student.getId());
+		studentEntity.setCandidateId(student.getCandidateId());
 		return studentEntity;
 	}
 
@@ -157,6 +158,7 @@ public class StudentService {
 		student.setSection(studentEntity.getSection());
 		student.setStandard(studentEntity.getStandard());
 		student.setId(studentEntity.getId());
+		student.setCandidateId(studentEntity.getCandidateId());
 		return student;
 	}
 
